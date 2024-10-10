@@ -120,6 +120,7 @@ body {
       }
 
       .favorite {
+        cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -152,6 +153,7 @@ body {
           padding: 0;
           border: none;
           border-radius: 8px;
+          cursor: pointer;
         }
         display: flex;
         justify-content: space-between;
