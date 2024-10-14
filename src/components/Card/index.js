@@ -1,13 +1,14 @@
 import React, { useState } from "react";
+import cardStyles from "./Card.module.scss";
 
 const Card = (props) => {
   const [favoriteImageUrl, setFavoriteImageUrl] = useState(0);
   const [addToCartImageUrl, setAddToCartImageUrl] = useState("plus.svg");
   const favoriteImageUrlArr = [{ 0: "heart.svg" }, { 1: "heartFavorite.svg" }];
   return (
-    <div className="card">
+    <div className={cardStyles.card}>
       <button
-        className="favorite"
+        className={cardStyles.favorite}
         onClick={() => {
           setFavoriteImageUrl(!favoriteImageUrl);
           console.log(favoriteImageUrl);
@@ -25,13 +26,13 @@ const Card = (props) => {
         alt="sneakers"
       />
       <p>{props.title}</p>
-      <div className="cardBottom">
-        <div className="cardPrice">
+      <div className={cardStyles.cardBottom}>
+        <div className={cardStyles.cardPrice}>
           <span>ЦЕНА:</span>
           <b>{props.price} руб.</b>
         </div>
         <button
-          className="addToCart"
+          className={cardStyles.addToCart}
           onClick={() => {
             setAddToCartImageUrl("plusChecked.svg");
           }}

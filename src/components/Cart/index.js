@@ -1,38 +1,55 @@
 import React from "react";
+import cartStyles from "./Cart.module.scss";
 
 const Cart = () => {
   return (
-    <div className="overlay">
-      <div className="drawer">
-        <div className="items">
-          <div className="cartTop">
+    <div className={cartStyles.overlay}>
+      <div className={cartStyles.drawer}>
+        <div className={cartStyles.items}>
+          <div className={cartStyles.cartTop}>
             <h2>
               Корзина
               <img src="/img/cartDelete.svg" alt="" />
             </h2>
-            <div className="cartItem">
-              <img className="sneakersImg" src="/img/sneakers/1.jpg" alt="" />
+            <div className={cartStyles.cartItem}>
+              <img
+                className={cartStyles.sneakersImg}
+                src="/img/card/sneakers/1.jpg"
+                alt=""
+              />
               <div>
                 <p>Мужские Кроссовки Nike Blazer Mid Suede</p>
                 <b>12 999 руб.</b>
               </div>
               <button>
-                <img className="deleteImg" src="/img/cartDelete.svg" alt="" />
+                <img
+                  className={cartStyles.deleteImg}
+                  src="/img/cart/cartDelete.svg"
+                  alt=""
+                />
               </button>
             </div>
-            <div className="cartItem">
-              <img className="sneakersImg" src="/img/sneakers/1.jpg" alt="" />
+            <div className={cartStyles.cartItem}>
+              <img
+                className={cartStyles.sneakersImg}
+                src="/img/card/sneakers/1.jpg"
+                alt=""
+              />
               <div>
                 <p>Мужские Кроссовки Nike Blazer Mid Suede</p>
                 <b>12 999 руб.</b>
               </div>
               <button>
-                <img className="deleteImg" src="/img/cartDelete.svg" alt="" />
+                <img
+                  className={cartStyles.deleteImg}
+                  src="/img/cart/cartDelete.svg"
+                  alt=""
+                />
               </button>
             </div>
           </div>
-          <div className="cartBottom">
-            <ul className="cartTotalBlock">
+          <div className={cartStyles.cartBottom}>
+            <ul className={cartStyles.cartTotalBlock}>
               <li>
                 <span>Итого:</span>
                 <div></div>
@@ -44,7 +61,7 @@ const Cart = () => {
                 <b>1074 руб.</b>
               </li>
             </ul>
-            <button className="greenButton">
+            <button className={cartStyles.greenButton}>
               <div>
                 Оформить заказ
                 <img src="/img/cartArrow.svg" alt="" />

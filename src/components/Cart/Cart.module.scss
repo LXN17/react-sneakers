@@ -1,0 +1,131 @@
+.overlay {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.drawer {
+  .items {
+    overflow: auto;
+    padding: 30px;
+    position: absolute;
+    height: 100%;
+    width: 385px;
+    right: 0;
+    background-color: white;
+    box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .cartTop {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    h2 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+
+      img {
+        cursor: pointer;
+      }
+    }
+  }
+  .cartBottom {
+    .greenButton {
+      position: relative;
+
+      img {
+        position: absolute;
+        right: 30px;
+        top: 20px;
+      }
+    }
+  }
+  .cartTotalBlock {
+    div {
+      flex: 1;
+      height: 1px;
+      border-bottom: 1px dashed #dfdfdf;
+      position: relative;
+      top: -3.2px;
+      margin: 0 7px;
+    }
+  }
+
+  .greenButton {
+    cursor: pointer;
+    align-items: center;
+    margin-top: 40px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    background-color: #9dd458;
+    border: 2px solid #ffffff;
+    width: 100%;
+    font-weight: 500;
+    font-size: 16px;
+    color: white;
+    border-radius: 18px;
+
+    &:hover {
+      background: lighten($color: #9dd558, $amount: 3%);
+    }
+
+    &:active {
+      background: darken($color: #9dd558, $amount: 3%);
+    }
+  }
+
+  .cartBottom ul li {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  p {
+    margin-bottom: 8px;
+    margin-top: 0;
+    font-size: 14px;
+  }
+
+  b {
+    font-size: 14px;
+  }
+
+  .cartItem {
+    border-radius: 20px;
+    padding: 15px;
+
+    .sneakersImg {
+      height: 70px;
+      width: 70px;
+    }
+
+    button {
+      cursor: pointer;
+      padding: 0;
+      border-radius: 8px;
+      height: 32px;
+      width: 32px;
+      border: 0;
+    }
+
+    border: 1px solid #f3f3f3;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 24px;
+  }
+}
