@@ -18,7 +18,6 @@ const arr = [
 function App() {
   return (
     <div className="wrapper clear">
-      <Cart />
       <Header />
       <div className="content">
         <div className="contentTop">

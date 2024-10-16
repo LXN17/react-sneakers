@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import headerStyles from "./Header.module.scss";
+import Cart from "../Cart";
 
 const Header = () => {
+  const [cartOpen, setCartOpen] = useState(false);
   return (
     <header>
+      <Cart cartOpen={cartOpen} setCartOpen={setCartOpen} />
       <div className={headerStyles.headerLeft}>
         <img width={40} height={40} src="/img/logo.png" />
         <div className={headerStyles.headerInfo}>
@@ -14,6 +17,9 @@ const Header = () => {
       <ul className={headerStyles.headerRight}>
         <li>
           <svg
+            onClick={() => {
+              setCartOpen(true);
+            }}
             width="20"
             height="20"
             viewBox="0 0 20 20"

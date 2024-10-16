@@ -1,15 +1,23 @@
 import React from "react";
 import cartStyles from "./Cart.module.scss";
 
-const Cart = () => {
+const Cart = ({ cartOpen, setCartOpen }) => {
   return (
-    <div className={cartStyles.overlay}>
+    <div
+      className={cartOpen == true ? cartStyles.overlayOpen : cartStyles.overlay}
+    >
       <div className={cartStyles.drawer}>
         <div className={cartStyles.items}>
           <div className={cartStyles.cartTop}>
             <h2>
               Корзина
-              <img src="/img/cartDelete.svg" alt="" />
+              <img
+                src="/img/cart/cartDelete.svg"
+                alt=""
+                onClick={() => {
+                  setCartOpen(false);
+                }}
+              />
             </h2>
             <div className={cartStyles.cartItem}>
               <img
