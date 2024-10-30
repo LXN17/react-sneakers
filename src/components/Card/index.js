@@ -2,20 +2,24 @@ import React, { useState } from "react";
 import cardStyles from "./Card.module.scss";
 
 const Card = (props) => {
-  const [favoriteImageUrl, setFavoriteImageUrl] = useState(0);
-  const [addToCartImageUrl, setAddToCartImageUrl] = useState("plus.svg");
-  const favoriteImageUrlArr = [{ 0: "heart.svg" }, { 1: "heartFavorite.svg" }];
+  const [isAdded, setIsAdded] = useState(true);
+  const [isfavorite, setIsFavorite] = useState(true);
+  const [isChosen, setIsChosen] = useState(false);
+
+  const onClickPlus = () => {
+    setIsAdded(!isAdded);
+    console.log(isAdded);
+  };
+
+  const onClickFavorite = () => {
+    setIsFavorite(!isfavorite);
+    console.log(isfavorite);
+  };
   return (
     <div className={cardStyles.card}>
-      <button
-        className={cardStyles.favorite}
-        onClick={() => {
-          setFavoriteImageUrl(!favoriteImageUrl);
-          console.log(favoriteImageUrl);
-        }}
-      >
+      <button className={cardStyles.favorite} onClick={onClickFavorite}>
         <img
-          src={"img/card/" + favoriteImageUrlArr[favoriteImageUrl]}
+          src={isfavorite ? "img/card/heart.svg" : "img/card/heartFavorite.svg"}
           alt="favorite"
         />
       </button>
@@ -31,14 +35,35 @@ const Card = (props) => {
           <span>ЦЕНА:</span>
           <b>{props.price} руб.</b>
         </div>
-        <button
-          className={cardStyles.addToCart}
-          onClick={() => {
-            setAddToCartImageUrl("plusChecked.svg");
-          }}
-        >
-          <img src={"img/card/" + addToCartImageUrl} alt="plus" />
+        <button className={cardStyles.addToCart} onClick={onClickPlus}>
+          <img
+            src={isAdded ? "img/card/plus.svg" : "img/card/plusChecked.svg"}
+            alt="plus"
+          />
         </button>
+      </div>
+      <div className={cardStyles.cardSizes}>
+        <span>Размеры:</span>
+        <ul className={cardStyles.cardSizeItems}>
+          {props.size.map((val) => {
+            return (
+              <li
+                key={val}
+                onClick={() => {
+                  setIsChosen(!isChosen);
+                  console.log(isChosen);
+                }}
+                className={
+                  isChosen
+                    ? cardStyles.cardSizeItemChosen
+                    : cardStyles.cardSizeItem
+                }
+              >
+                {val + " ru"}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );

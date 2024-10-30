@@ -1,4 +1,39 @@
 .card {
+  &SizeItems {
+    display: flex;
+    gap: 10px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+    .cardSizeItem {
+      font-size: 14px;
+      border: 1px solid #f3f3f3;
+      border-radius: 5px;
+      padding: 4px;
+      cursor: pointer;
+      transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
+
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0px 14px 30px 0px #0000000d;
+      }
+
+      &Chosen {
+        font-size: 14px;
+        background-color: lightgreen;
+        border: 1px solid #f3f3f3;
+        border-radius: 5px;
+        padding: 4px;
+        cursor: pointer;
+        transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
+        &:hover {
+          transform: translateY(-1px);
+          box-shadow: 0px 14px 30px 0px #0000000d;
+        }
+      }
+    }
+  }
+
   &:hover {
     box-shadow: 0px 14px 30px 0px #0000000d;
     transform: translateY(-10px);
@@ -39,7 +74,6 @@
   border: 1px solid #f3f3f3;
   border-radius: 40px;
   width: 210px;
-  height: 260px;
   padding: 20px;
 
   .cardBottom {

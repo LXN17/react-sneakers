@@ -39,6 +39,10 @@ header {
 
   .headerRight {
     li {
+      .headerCartBlock {
+        display: flex;
+        gap: 10px;
+      }
       cursor: pointer;
       margin-right: 30px;
       gap: 10px;
