@@ -4,7 +4,7 @@ import cardStyles from "./Card.module.scss";
 const Card = (props) => {
   const [isAdded, setIsAdded] = useState(true);
   const [isfavorite, setIsFavorite] = useState(true);
-  const [isChosen, setIsChosen] = useState(false);
+  const [isChosen, setIsChosen] = useState();
 
   const onClickPlus = () => {
     setIsAdded(!isAdded);
@@ -50,11 +50,10 @@ const Card = (props) => {
               <li
                 key={val}
                 onClick={() => {
-                  setIsChosen(!isChosen);
-                  console.log(isChosen);
+                  setIsChosen(val);
                 }}
                 className={
-                  isChosen
+                  isChosen === val
                     ? cardStyles.cardSizeItemChosen
                     : cardStyles.cardSizeItem
                 }
