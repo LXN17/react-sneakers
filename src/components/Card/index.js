@@ -3,8 +3,8 @@ import cardStyles from "./Card.module.scss";
 
 const Card = (props) => {
   const [isAdded, setIsAdded] = useState(true);
-  const [isfavorite, setIsFavorite] = useState(true);
-  const [isChosen, setIsChosen] = useState(false);
+  const [IsFavorite, setIsFavorite] = useState(true);
+  const [ChosenId, setChosenId] = useState();
 
   const onClickPlus = () => {
     setIsAdded(!isAdded);
@@ -12,14 +12,14 @@ const Card = (props) => {
   };
 
   const onClickFavorite = () => {
-    setIsFavorite(!isFavorite);
-    console.log(isFavorite);
+    setIsFavorite(!IsFavorite);
+    console.log(IsFavorite);
   };
   return (
     <div className={cardStyles.card}>
       <button className={cardStyles.favorite} onClick={onClickFavorite}>
         <img
-          src={isFavorite ? "img/card/heart.svg" : "img/card/heartFavorite.svg"}
+          src={IsFavorite ? "img/card/heart.svg" : "img/card/heartFavorite.svg"}
           alt="favorite"
         />
       </button>
@@ -50,11 +50,10 @@ const Card = (props) => {
               <li
                 key={val}
                 onClick={() => {
-                  setIsChosen(!isChosen);
-                  console.log(isChosen);
+                  setChosenId(val);
                 }}
                 className={
-                  isChosen
+                  ChosenId === val
                     ? cardStyles.cardSizeItemChosen
                     : cardStyles.cardSizeItem
                 }
