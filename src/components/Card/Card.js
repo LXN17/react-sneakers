@@ -8,12 +8,16 @@ const Card = (props) => {
 
   const onClickPlus = () => {
     setIsAdded(!isAdded);
-    console.log(isAdded);
+    props.onPlus({
+      title: props.title,
+      imageUrl: props.imageUrl,
+      price: props.price,
+      size: props.size,
+    });
   };
 
   const onClickFavorite = () => {
     setIsFavorite(!IsFavorite);
-    console.log(IsFavorite);
   };
   return (
     <div className={cardStyles.card}>

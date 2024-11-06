@@ -1,7 +1,14 @@
 import React from "react";
 import cartStyles from "./Cart.module.scss";
+import Card from "../Card/Card";
 
-const Cart = ({ cartOpen, setCartOpen }) => {
+const Cart = ({
+  cartOpen,
+  setCartOpen,
+  cartItems = [],
+  setCartItems,
+  chosedSize,
+}) => {
   return (
     <div
       className={cartOpen == true ? cartStyles.overlayOpen : cartStyles.overlay}
@@ -19,42 +26,30 @@ const Cart = ({ cartOpen, setCartOpen }) => {
                 }}
               />
             </h2>
-            <div className={cartStyles.cartItem}>
-              <img
-                className={cartStyles.sneakersImg}
-                src="/img/card/sneakers/1.jpg"
-                alt=""
-              />
-              <div>
-                <p>Мужские Кроссовки Nike Blazer Mid Suede</p>
-                <b>12 999 руб.</b>
-              </div>
-              <button>
-                <img
-                  className={cartStyles.deleteImg}
-                  src="/img/cart/cartDelete.svg"
-                  alt=""
-                />
-              </button>
-            </div>
-            <div className={cartStyles.cartItem}>
-              <img
-                className={cartStyles.sneakersImg}
-                src="/img/card/sneakers/1.jpg"
-                alt=""
-              />
-              <div>
-                <p>Мужские Кроссовки Nike Blazer Mid Suede</p>
-                <b>12 999 руб.</b>
-              </div>
-              <button>
-                <img
-                  className={cartStyles.deleteImg}
-                  src="/img/cart/cartDelete.svg"
-                  alt=""
-                />
-              </button>
-            </div>
+
+            {cartItems.map((obj) => {
+              return (
+                <div className={cartStyles.cartItem}>
+                  <img
+                    className={cartStyles.sneakersImg}
+                    src={"/img/card/sneakers/" + obj.imageUrl}
+                    alt=""
+                  />
+                  <div>
+                    <p>{obj.title}</p>
+                    <b>{obj.price + " руб."}</b>
+                    <b>{obj.size[1] + " ru"}</b>
+                  </div>
+                  <button>
+                    <img
+                      className={cartStyles.deleteImg}
+                      src="/img/cart/cartDelete.svg"
+                      alt=""
+                    />
+                  </button>
+                </div>
+              );
+            })}
           </div>
           <div className={cartStyles.cartBottom}>
             <ul className={cartStyles.cartTotalBlock}>

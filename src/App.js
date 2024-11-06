@@ -2,22 +2,9 @@ import React, { useEffect, useState } from "react";
 import Card from "./components/Card/Card";
 import Header from "./components/Header/Header";
 
-const arr = [
-  // {
-  //   title: "Мужские Кроссовки Nike Blazer Mid Suede",
-  //   price: 12999,
-  //   imageUrl: "1.jpg",
-  //   size: [37, 38, 39, 40, 41, 42, 43],
-  // },
-  // {
-  //   title: "Мужские Кроссовки Nike Air Max 270",
-  //   price: 15600,
-  //   imageUrl: "1.jpg",
-  //   size: [37, 38, 39, 40, 41],
-  // },
-];
 function App() {
-  let [items, setItems] = useState([]);
+  const [items, setItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
   useEffect(() => {
     fetch("https://6724cf91c39fedae05b2d14a.mockapi.io/sneakers")
       .then((res) => {
@@ -27,10 +14,13 @@ function App() {
         setItems(json);
       });
   }, []);
+  const onAddToCart = (obj) => {
+    setCartItems((prev) => [...prev, obj]);
+  };
 
   return (
     <div className="wrapper clear">
-      <Header />
+      <Header cartItems={cartItems} setCartItems={setCartItems} />
       <div className="content">
         <div className="contentTop">
           <h1>Все кроссовки</h1>
@@ -49,6 +39,7 @@ function App() {
                 imageUrl={val.imageUrl}
                 size={val.size}
                 key={val.title}
+                onPlus={(val) => onAddToCart(val)}
               />
             );
           })}
