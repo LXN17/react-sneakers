@@ -47,7 +47,7 @@ const Card = (props) => {
         <ul className={cardStyles.cardSizeItems}>
           {props.size.map((val) => {
             return (
-              <li
+              <button
                 key={val}
                 onClick={() => {
                   setChosenId(val);
@@ -59,7 +59,7 @@ const Card = (props) => {
                 }
               >
                 {val + " ru"}
-              </li>
+              </button>
             );
           })}
         </ul>
