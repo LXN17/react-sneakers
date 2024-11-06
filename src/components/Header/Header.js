@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import headerStyles from "./Header.module.scss";
-import Cart from "../Cart";
+import Cart from "../Cart/Cart";
 
 const Header = () => {
   const [cartOpen, setCartOpen] = useState(false);
