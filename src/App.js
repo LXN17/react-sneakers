@@ -38,7 +38,7 @@ function App() {
                 price={val.price}
                 imageUrl={val.imageUrl}
                 size={val.size}
-                key={val.title}
+                key={val.id}
                 onPlus={(val) => onAddToCart(val)}
               />
             );
