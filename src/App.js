@@ -4,7 +4,9 @@ import Header from "./components/Header/Header";
 
 function App() {
   const [items, setItems] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
   const [cartItems, setCartItems] = useState([]);
+
   useEffect(() => {
     fetch("https://6724cf91c39fedae05b2d14a.mockapi.io/sneakers")
       .then((res) => {
@@ -14,8 +16,13 @@ function App() {
         setItems(json);
       });
   }, []);
+
   const onAddToCart = (obj) => {
     setCartItems((prev) => [...prev, obj]);
+  };
+
+  const onChangeSearchValue = (event) => {
+    setSearchValue(event.target.value);
   };
 
   return (
@@ -26,23 +33,31 @@ function App() {
           <h1>Все кроссовки</h1>
           <div className="searchBlock">
             <img src="img/search.svg" alt="" />
-            <input type="text" placeholder="Поиск..." />
+            <input
+              onChange={onChangeSearchValue}
+              value={searchValue}
+              placeholder="Поиск..."
+            />
           </div>
         </div>
 
         <div className="sneakers">
-          {items.map((val) => {
-            return (
-              <Card
-                title={val.title}
-                price={val.price}
-                imageUrl={val.imageUrl}
-                size={val.size}
-                key={val.id}
-                onPlus={(val) => onAddToCart(val)}
-              />
-            );
-          })}
+          {items
+            .filter((item) =>
+              item.title.toLowerCase().includes(searchValue.toLowerCase())
+            )
+            .map((val) => {
+              return (
+                <Card
+                  title={val.title}
+                  price={val.price}
+                  imageUrl={val.imageUrl}
+                  size={val.size}
+                  key={val.id}
+                  onPlus={(val) => onAddToCart(val)}
+                />
+              );
+            })}
         </div>
       </div>
     </div>
