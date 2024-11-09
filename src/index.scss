@@ -3,7 +3,7 @@ body {
   font-family: "Inter";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #e7f6ff;
+  background-color: rgb(255, 113, 113);
 }
 
 * {
@@ -45,6 +45,7 @@ body {
     .sneakers {
       display: flex;
       gap: 40px;
+      flex-wrap: wrap;
     }
 
     h1 {

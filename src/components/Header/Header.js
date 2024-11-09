@@ -14,7 +14,7 @@ const Header = ({ cartItems }) => {
       <div className={headerStyles.headerLeft}>
         <img width={40} height={40} src="/img/logo.png" />
         <div className={headerStyles.headerInfo}>
-          <h3>React Sneakers</h3>
+          <h3>LXN Sneakers</h3>
           <p>Магазин лучших кроссовок</p>
         </div>
       </div>
