@@ -2,13 +2,7 @@ import React from "react";
 import cartStyles from "./Cart.module.scss";
 import Card from "../Card/Card";
 
-const Cart = ({
-  cartOpen,
-  setCartOpen,
-  cartItems = [],
-  setCartItems,
-  chosedSize,
-}) => {
+const Cart = ({ cartOpen, setCartOpen, cartItems = [] }) => {
   return (
     <div
       className={cartOpen == true ? cartStyles.overlayOpen : cartStyles.overlay}
@@ -29,7 +23,7 @@ const Cart = ({
 
             {cartItems.map((obj) => {
               return (
-                <div className={cartStyles.cartItem}>
+                <div key={obj.imageUrl} className={cartStyles.cartItem}>
                   <img
                     className={cartStyles.sneakersImg}
                     src={"/img/card/sneakers/" + obj.imageUrl}

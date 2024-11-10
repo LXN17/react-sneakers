@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "./components/Card/Card";
 import Header from "./components/Header/Header";
+import axios from "axios";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -8,12 +9,10 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    fetch("https://6724cf91c39fedae05b2d14a.mockapi.io/sneakers")
+    axios
+      .get("https://6724cf91c39fedae05b2d14a.mockapi.io/sneakers")
       .then((res) => {
-        return res.json();
-      })
-      .then((json) => {
-        setItems(json);
+        setItems(res.data);
       });
   }, []);
 
