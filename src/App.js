@@ -14,10 +14,21 @@ function App() {
       .then((res) => {
         setItems(res.data);
       });
+    axios
+      .get("https://6724cf91c39fedae05b2d14a.mockapi.io/cart")
+      .then((res) => {
+        setCartItems(res.data);
+      });
   }, []);
 
   const onAddToCart = (obj) => {
+    axios.post("https://6724cf91c39fedae05b2d14a.mockapi.io/cart", obj);
     setCartItems((prev) => [...prev, obj]);
+  };
+
+  const onRemoveItem = (id) => {
+    axios.delete(`https://6724cf91c39fedae05b2d14a.mockapi.io/cart/${id}`);
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
   const onChangeSearchValue = (event) => {
@@ -26,7 +37,11 @@ function App() {
 
   return (
     <div className="wrapper clear">
-      <Header cartItems={cartItems} setCartItems={setCartItems} />
+      <Header
+        onRemoveItem={onRemoveItem}
+        cartItems={cartItems}
+        setCartItems={setCartItems}
+      />
       <div className="content">
         <div className="contentTop">
           <h1>Все кроссовки</h1>

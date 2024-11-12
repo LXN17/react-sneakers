@@ -2,7 +2,7 @@ import React from "react";
 import cartStyles from "./Cart.module.scss";
 import Card from "../Card/Card";
 
-const Cart = ({ cartOpen, setCartOpen, cartItems = [] }) => {
+const Cart = ({ cartOpen, setCartOpen, onRemoveItem, cartItems = [] }) => {
   return (
     <div
       className={cartOpen == true ? cartStyles.overlayOpen : cartStyles.overlay}
@@ -36,6 +36,9 @@ const Cart = ({ cartOpen, setCartOpen, cartItems = [] }) => {
                   </div>
                   <button>
                     <img
+                      onClick={() => {
+                        onRemoveItem(obj.id);
+                      }}
                       className={cartStyles.deleteImg}
                       src="/img/cart/cartDelete.svg"
                       alt=""

@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import headerStyles from "./Header.module.scss";
 import Cart from "../Cart/Cart";
 
-const Header = ({ cartItems }) => {
+const Header = ({ cartItems, setCartItems, onRemoveItem }) => {
   const [cartOpen, setCartOpen] = useState(false);
   return (
     <header>
       <Cart
+        onRemoveItem={onRemoveItem}
         cartOpen={cartOpen}
         setCartOpen={setCartOpen}
         cartItems={cartItems}
+        setCartItems={setCartItems}
       />
       <div className={headerStyles.headerLeft}>
         <img width={40} height={40} src="/img/logo.png" />
