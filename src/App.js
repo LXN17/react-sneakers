@@ -14,16 +14,26 @@ function App() {
       const cartResponse = await axios.get(
         "https://6724cf91c39fedae05b2d14a.mockapi.io/cart"
       );
-
       const itemsResponse = await axios.get(
         "https://6724cf91c39fedae05b2d14a.mockapi.io/sneakers"
       );
+
       setCartItems(cartResponse.data);
       setItems(itemsResponse.data);
+
+      // Заполняем выбранные размеры из cartResponse
+      const sizes = {};
+      cartResponse.data.forEach((item) => {
+        if (item.id && item.size) {
+          sizes[item.id] = item.size;
+        }
+      });
+      setChosenSizes(sizes);
     }
 
     fetchData();
   }, []);
+
   const onRemoveItem = async (id) => {
     try {
       // Удаляем элемент из бекенда
@@ -39,11 +49,22 @@ function App() {
   };
 
   // Функция для обработки выбора размера
-  const handleSizeSelect = (cardId, size) => {
-    setChosenSizes((prev) => ({
-      ...prev,
-      [cardId]: size, // Устанавливаем размер для конкретной карточки
-    }));
+  const handleSizeSelect = async (cardId, size) => {
+    try {
+      // Обновляем локальное состояние
+      setChosenSizes((prev) => ({
+        ...prev,
+        [cardId]: size,
+      }));
+
+      // Опционально обновляем данные на сервере, если size хранится там
+      await axios.put(
+        `https://6724cf91c39fedae05b2d14a.mockapi.io/cart/${cardId}`,
+        { size }
+      );
+    } catch (error) {
+      console.error("Ошибка при обновлении размера:", error);
+    }
   };
 
   const onAddToCart = (obj) => {
