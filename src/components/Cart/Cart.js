@@ -1,11 +1,18 @@
 import React from "react";
 import cartStyles from "./Cart.module.scss";
-import Card from "../Card/Card";
 
-const Cart = ({ cartOpen, setCartOpen, onRemoveItem, cartItems = [] }) => {
+const Cart = ({
+  chosenId,
+  cartOpen,
+  setCartOpen,
+  onRemoveItem,
+  cartItems = [],
+}) => {
   return (
     <div
-      className={cartOpen == true ? cartStyles.overlayOpen : cartStyles.overlay}
+      className={
+        cartOpen === true ? cartStyles.overlayOpen : cartStyles.overlay
+      }
     >
       <div className={cartStyles.drawer}>
         <div className={cartStyles.items}>
@@ -21,8 +28,8 @@ const Cart = ({ cartOpen, setCartOpen, onRemoveItem, cartItems = [] }) => {
               />
             </h2>
 
-            {cartItems.map((obj) => {
-              return (
+            {cartItems.length > 0 ? (
+              cartItems.map((obj) => (
                 <div key={obj.imageUrl} className={cartStyles.cartItem}>
                   <img
                     className={cartStyles.sneakersImg}
@@ -32,7 +39,12 @@ const Cart = ({ cartOpen, setCartOpen, onRemoveItem, cartItems = [] }) => {
                   <div>
                     <p>{obj.title}</p>
                     <b>{obj.price + " руб."}</b>
-                    <b>{obj.size[1] + " ru"}</b>
+                    {/* Отображение размера */}
+                    {obj.size ? (
+                      <b>Размер: {obj.size} RU</b>
+                    ) : (
+                      <b>Размер не выбран</b>
+                    )}
                   </div>
                   <button>
                     <img
@@ -45,8 +57,10 @@ const Cart = ({ cartOpen, setCartOpen, onRemoveItem, cartItems = [] }) => {
                     />
                   </button>
                 </div>
-              );
-            })}
+              ))
+            ) : (
+              <p>Корзина пуста</p>
+            )}
           </div>
           <div className={cartStyles.cartBottom}>
             <ul className={cartStyles.cartTotalBlock}>

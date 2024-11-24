@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import headerStyles from "./Header.module.scss";
 import Cart from "../Cart/Cart";
 
-const Header = ({ cartItems, setCartItems, onRemoveItem }) => {
+const Header = ({ chosenId, cartItems, setCartItems, onRemoveItem }) => {
   const [cartOpen, setCartOpen] = useState(false);
   return (
     <header>
       <Cart
-        onRemoveItem={onRemoveItem}
+        chosenId={chosenId}
+        onRemoveItem={onRemoveItem} // Проверьте, что эта строка есть
         cartOpen={cartOpen}
         setCartOpen={setCartOpen}
         cartItems={cartItems}
         setCartItems={setCartItems}
       />
+
       <div className={headerStyles.headerLeft}>
         <img width={40} height={40} src="/img/logo.png" />
         <div className={headerStyles.headerInfo}>

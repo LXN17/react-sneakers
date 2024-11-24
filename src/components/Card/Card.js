@@ -1,19 +1,33 @@
 import React, { useState } from "react";
 import cardStyles from "./Card.module.scss";
 
-const Card = ({ id, title, imageUrl, price, size, onPlus }) => {
-  const [isAdded, setIsAdded] = useState(true);
-  const [ChosenId, setChosenId] = useState();
+const Card = ({
+  id,
+  title,
+  imageUrl,
+  price,
+  size,
+  onPlus,
+  chosenSize,
+  onSizeSelect,
+  added = false,
+}) => {
+  const [isAdded, setIsAdded] = useState(added);
 
   const onClickPlus = () => {
-    setIsAdded(!isAdded);
-    onPlus({
-      id: id,
-      title: title,
-      imageUrl: imageUrl,
-      price: price,
-      size: size,
-    });
+    if (chosenSize) {
+      setIsAdded(!isAdded);
+
+      onPlus({
+        id: id,
+        title: title,
+        imageUrl: imageUrl,
+        price: price,
+        size: chosenSize, // Передаем выбранный размер
+      });
+    } else {
+      alert("Вы не выбрали размер!");
+    }
   };
 
   return (
@@ -32,7 +46,7 @@ const Card = ({ id, title, imageUrl, price, size, onPlus }) => {
         </div>
         <button className={cardStyles.addToCart} onClick={onClickPlus}>
           <img
-            src={isAdded ? "img/card/plus.svg" : "img/card/plusChecked.svg"}
+            src={!isAdded ? "img/card/plus.svg" : "img/card/plusChecked.svg"}
             alt="plus"
           />
         </button>
@@ -40,23 +54,21 @@ const Card = ({ id, title, imageUrl, price, size, onPlus }) => {
       <div className={cardStyles.cardSizes}>
         <span>Размеры:</span>
         <ul className={cardStyles.cardSizeItems}>
-          {size.map((val) => {
-            return (
-              <button
-                key={val}
-                onClick={() => {
-                  setChosenId(val);
-                }}
-                className={
-                  ChosenId === val
-                    ? cardStyles.cardSizeItemChosen
-                    : cardStyles.cardSizeItem
-                }
-              >
-                {val + " ru"}
-              </button>
-            );
-          })}
+          {size.map((val) => (
+            <button
+              key={val}
+              onClick={() => {
+                onSizeSelect(id, val); // Передаем ID карточки и выбранный размер
+              }}
+              className={
+                chosenSize === val
+                  ? cardStyles.cardSizeItemChosen
+                  : cardStyles.cardSizeItem
+              }
+            >
+              {val + " ru"}
+            </button>
+          ))}
         </ul>
       </div>
     </div>

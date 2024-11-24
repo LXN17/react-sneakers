@@ -7,38 +7,68 @@ function App() {
   const [items, setItems] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [cartItems, setCartItems] = useState([]);
+  const [chosenSizes, setChosenSizes] = useState({}); // Для отслеживания размеров
 
   useEffect(() => {
-    axios
-      .get("https://6724cf91c39fedae05b2d14a.mockapi.io/sneakers")
-      .then((res) => {
-        setItems(res.data);
-      });
+    async function fetchData() {
+      const cartResponse = await axios.get(
+        "https://6724cf91c39fedae05b2d14a.mockapi.io/cart"
+      );
 
-    axios
-      .get("https://6724cf91c39fedae05b2d14a.mockapi.io/cart")
-      .then((res) => {
-        setCartItems(res.data);
-      });
+      const itemsResponse = await axios.get(
+        "https://6724cf91c39fedae05b2d14a.mockapi.io/sneakers"
+      );
+      setCartItems(cartResponse.data);
+      setItems(itemsResponse.data);
+    }
+
+    fetchData();
   }, []);
+  const onRemoveItem = async (id) => {
+    try {
+      // Удаляем элемент из бекенда
+      await axios.delete(
+        `https://6724cf91c39fedae05b2d14a.mockapi.io/cart/${id}`
+      );
+
+      // Удаляем элемент из локального состояния
+      setCartItems((prev) => prev.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error("Ошибка при удалении товара:", error);
+    }
+  };
+
+  // Функция для обработки выбора размера
+  const handleSizeSelect = (cardId, size) => {
+    setChosenSizes((prev) => ({
+      ...prev,
+      [cardId]: size, // Устанавливаем размер для конкретной карточки
+    }));
+  };
 
   const onAddToCart = (obj) => {
+    const size = chosenSizes[obj.id];
+    if (!size) {
+      alert("Выберите размер перед добавлением в корзину!");
+      return;
+    }
+
     if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
       axios.delete(
         `https://6724cf91c39fedae05b2d14a.mockapi.io/cart/${obj.id}`
       );
+
       setCartItems((prev) =>
         prev.filter((item) => Number(item.id) !== Number(obj.id))
       );
     } else {
-      axios.post(`https://6724cf91c39fedae05b2d14a.mockapi.io/cart/`, obj);
-      setCartItems((prev) => [...prev, obj]);
-    }
-  };
+      axios.post(`https://6724cf91c39fedae05b2d14a.mockapi.io/cart/`, {
+        ...obj,
+        size, // Добавляем выбранный размер
+      });
 
-  const onRemoveItem = (id) => {
-    axios.delete(`https://6724cf91c39fedae05b2d14a.mockapi.io/cart/${id}`);
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
+      setCartItems((prev) => [...prev, { ...obj, size }]);
+    }
   };
 
   const onChangeSearchValue = (event) => {
@@ -48,10 +78,11 @@ function App() {
   return (
     <div className="wrapper clear">
       <Header
-        onRemoveItem={onRemoveItem}
         cartItems={cartItems}
         setCartItems={setCartItems}
+        onRemoveItem={onRemoveItem} // Передача функции в Header
       />
+
       <div className="content">
         <div className="contentTop">
           <h1>Все кроссовки</h1>
@@ -73,12 +104,18 @@ function App() {
             .map((val) => {
               return (
                 <Card
+                  key={val.id}
+                  id={val.id}
                   title={val.title}
                   price={val.price}
                   imageUrl={val.imageUrl}
                   size={val.size}
-                  key={val.id}
                   onPlus={(val) => onAddToCart(val)}
+                  chosenSize={chosenSizes[val.id]} // Передаем текущий выбранный размер
+                  onSizeSelect={handleSizeSelect} // Передаем функцию для обновления размера
+                  added={cartItems.some(
+                    (obj) => Number(obj.id) === Number(val.id)
+                  )}
                 />
               );
             })}
